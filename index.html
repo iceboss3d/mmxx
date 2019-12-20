@@ -1,0 +1,180 @@
+<!--A Design by W3layouts 
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>The MMXX Experience</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="The MMXX Experience, Solomon King" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- Meta tag Keywords -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- js -->
+	<!-- //js -->
+	<!-- web-fonts -->
+	<link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<!-- //web-fonts -->
+</head>
+
+<body>
+	<!-- banner -->
+	<div class="video">
+		<div class="center-container">
+			<div class="w3ls-agileinfo">
+				<h1>The MMXX Experience</h1>
+			</div>
+			<div class="bg-agile">
+				<h2>Registration Form</h2>
+				<div class="login-form">
+					<div class="alert"></div>
+					<form id="reg">
+						<input type="text" id="firstName" placeholder="First Name" required inputmode="none" />
+						<input type="text" id="lastName" placeholder="Last Name" required inputmode="none" />
+						<input type="email" id="email" placeholder="Email" required inputmode="email" />
+						<input type="text" id="phoneNumber" placeholder="Phone Number" required inputmode="tel" />
+						<select id="gender" class="form-control" required>
+							<option value="" selected hidden>Gender</option>
+							<option value="Female">Female</option>
+							<option value="Male">Male</option>
+						</select>
+						<select id="category" class="form-control" required>
+							<option value="" selected hidden>Ticket category</option>
+							<option value="Free">Free</option>
+							<option value="VIP">VIP</option>
+						</select>
+						<input type="submit" value="Submit" id="reg-button">
+					</form>
+				</div>
+			</div>
+			<!-- //banner -->
+			<!--copyright-->
+			<div class="copy w3ls">
+				<p>&copy; 2019 Mr Solomon Money King . All Rights Reserved | Design by <a
+						href="http://safescrow.com.ng/web-design/" target="_blank">SafeScrow Tech Services</a> </p>
+			</div>
+			<!--//copyright-->
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://js.paystack.co/v1/inline.js"></script>
+	<script>
+		$(".alert").hide();
+		$(document).ready(() => {
+			$("#reg").on("submit", (e) => {
+				e.preventDefault();
+				$("#reg-button").attr("disabled", true);
+				$("#reg-button").val("Please wait...");
+				const firstName = $("#firstName").val();
+				const lastName = $("#lastName").val();
+				const email = $("#email").val();
+				const phoneNumber = $("#phoneNumber").val();
+				const gender = $("#gender").val();
+				const category = $("#category").val();
+
+				if (category === "Free") {
+					$.ajax({
+						url: "https://revents-api.herokuapp.com/api/tmc20/mmxx",
+						method: "POST",
+						contentType: "application/json",
+						data: JSON.stringify({
+							firstName, lastName, email, phoneNumber, gender, category
+						}),
+						error: () => {
+							$(".alert").addClass("alert-danger");
+							$(".alert").removeClass("alert-success");
+							$(".alert").text("Registration Failed");
+							$(".alert").show();
+							$("#reg-button").attr("disabled", false);
+							$("#reg-button").val("Submit");
+						}
+					}).done(() => {
+						$(".alert").addClass("alert-success");
+						$(".alert").removeClass("alert-danger");
+						$(".alert").text("Registration Succesful");
+						$(".alert").show();
+						window.location.href = "https://www.solomonking.info/mmxx";
+					})
+				} else {
+					const handler = PaystackPop.setup({
+						key: 'pk_live_ad52b5e871418a86f1e96dd31b89e742ad857c09',
+						email,
+						amount: 2500000,
+						currency: "NGN",
+						metadata: {
+							custom_fields: [
+								{
+									display_name: "First Name",
+									variable_name: "first_name",
+									value: firstName
+								},
+								{
+									display_name: "Last Name",
+									variable_name: "last_name",
+									value: lastName
+								},
+								{
+									display_name: "Phone Number",
+									variable_name: "phone_number",
+									value: phoneNumber
+								}
+							]
+						},
+						callback: function (response) {
+							$.ajax({
+								url: "https://revents-api.herokuapp.com/api/tmc20/mmxx",
+								method: "POST",
+								contentType: "application/json",
+								data: JSON.stringify({
+									firstName, lastName, email, phoneNumber, gender, category, ref: response.reference
+								}),
+								error: () => {
+									$(".alert").addClass("alert-danger");
+									$(".alert").removeClass("alert-success");
+									$(".alert").text("Registration Failed");
+									$(".alert").show();
+									$("#reg-button").attr("disabled", false);
+									$("#reg-button").val("Submit");
+								}
+							}).done(() => {
+								$(".alert").addClass("alert-success");
+								$(".alert").removeClass("alert-danger");
+								$(".alert").text("Registration Succesful");
+								$(".alert").show();
+								window.location.href = "https://www.solomonking.info/mmxx";
+							})
+						},
+						onClose: function () {
+							$(".alert").addClass("alert-danger");
+							$(".alert").removeClass("alert-success");
+							$(".alert").text("Registration Cancelled");
+							$(".alert").show();
+						}
+					});
+					handler.openIframe();
+				}
+			})
+		})
+	</script>
+</body>
+
+</html>
