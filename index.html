@@ -38,8 +38,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<div class="login-form">
 					<div class="alert"></div>
 					<form id="reg">
-						<input type="text" id="firstName" placeholder="First Name" required inputmode="none" />
-						<input type="text" id="lastName" placeholder="Last Name" required inputmode="none" />
+						<input type="text" id="firstName" placeholder="First Name" required/>
+						<input type="text" id="lastName" placeholder="Last Name" required />
 						<input type="email" id="email" placeholder="Email" required inputmode="email" />
 						<input type="text" id="phoneNumber" placeholder="Phone Number" required inputmode="tel" />
 						<select id="gender" class="form-control" required>
@@ -118,7 +118,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					const handler = PaystackPop.setup({
 						key: 'pk_live_ad52b5e871418a86f1e96dd31b89e742ad857c09',
 						email,
-						amount: 2500000,
+						amount: 2000000,
 						currency: "NGN",
 						metadata: {
 							custom_fields: [
